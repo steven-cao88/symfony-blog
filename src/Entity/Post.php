@@ -94,12 +94,12 @@ class Post
 
     public function getCreated(): ?\DateTimeInterface
     {
-        return $this->created;
+        return $this->created ?? 0;
     }
 
     public function setCreated(\DateTimeInterface $created): self
     {
-        $this->created = $created;
+        $this->created = $created ?? new \DateTime("now");
 
         return $this;
     }

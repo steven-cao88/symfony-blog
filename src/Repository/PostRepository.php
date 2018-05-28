@@ -19,12 +19,15 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function findAllNonDeleted(): array
+    public function findAllNonDeleted()
     {
         return $this->createQueryBuilder('post')
-                ->andWhere('post.deleted = 0')
-                ->orderBy('post.created', 'DESC')
-                ->getQuery();
+            ->andWhere('post.deleted = :val')
+            ->setParameter('val', 0)
+            ->orderBy('post.created', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**

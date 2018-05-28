@@ -14,11 +14,11 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
-            ->add('created_by')
-            ->add('created')
-            ->add('modified_by')
-            ->add('modified')
-            ->add('deleted')
+            // ->add('created_by')
+            // ->add('created')
+            // ->add('modified_by')
+            // ->add('modified')
+            // ->add('deleted')
         ;
     }
 

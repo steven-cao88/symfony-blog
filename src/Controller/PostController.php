@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('post/index.html.twig', ['posts' => $postRepository->findAll()]);
+        return $this->render('post/index.html.twig', ['posts' => $postRepository->findAllNonDeleted()]);
     }
 
     /**
@@ -34,6 +34,9 @@ class PostController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $post->setCreated(new \DateTime("now"));
+
             $em->persist($post);
             $em->flush();
 
@@ -81,7 +84,8 @@ class PostController extends Controller
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($post);
+            $post->setDeleted(1);
+            // $em->remove($post);
             $em->flush();
         }
 
