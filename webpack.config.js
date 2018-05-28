@@ -5,8 +5,19 @@ Encore
     .setOutputPath('public/build/')
     // the public path used by the web server to access the previous directory
     .setPublicPath('/build')
+
+    // will create public/build/app.js and public/build/app.css
+    .addEntry('app', './assets/js/app.js')
+
+    // empty the outputPath dir before each build
     .cleanupOutputBeforeBuild()
+
+    // enable source maps during development
     .enableSourceMaps(!Encore.isProduction())
+
+    // show OS notifications when builds finish/fail
+    .enableBuildNotifications()
+
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning(Encore.isProduction())
 
@@ -15,10 +26,12 @@ Encore
     // .addStyleEntry('css/app', './assets/css/app.scss')
 
     // uncomment if you use Sass/SCSS files
-    // .enableSassLoader()
+    .enableSassLoader(function(sassOptions) {}, {
+        resolveUrlLoader: false
+    })
 
     // uncomment for legacy applications that require $/jQuery as a global variable
-    // .autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
